@@ -53,7 +53,12 @@ userSchema.methods.deleteItemFromCart = function (prodId) {
     return item.productId.toString() !== prodId.toString();
   });
 
-  this.cart = updatedCartItems;
+  this.cart.items = updatedCartItems;
+  return this.save();
+};
+
+userSchema.methods.clearCart = function () {
+  this.cart = { items: [] };
   return this.save();
 };
 
